@@ -1,0 +1,50 @@
+<!--
+  ~ Copyright (c) 2015 - 2018. Shanghai Zlp Information Technology Co,. ltd.
+  ~ All rights are reserved.
+  -->
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <property name="autoIncrement" value="true"/>
+    <changeSet id="2018072617480001" author="zlp">
+        <createTable tableName="ft_user">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="username" type="varchar(250)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="group_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="profession_info_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <loadData tableName="ft_user" file="db/release.1.0.0/data/user.csv"/>
+    </changeSet>
+    <changeSet id="2018073120560002" author="zlp">
+        <createTable tableName="ft_user_authority">
+            <column name="id" type="bigint" autoIncrement="${AutoIncrement}">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="user_id" type="bigint" remarks="用户id">
+                <constraints nullable="false"/>
+            </column>
+            <column name="authority_name" type="varchar(250)" remarks="权限id">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <loadData tableName="ft_user_authority" file="db/release.1.0.0/data/user_authority.csv"/>
+    </changeSet>
+</databaseChangeLog>

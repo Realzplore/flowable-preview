@@ -1,0 +1,16 @@
+<!--
+  ~ Copyright (c) 2015 - 2018. Shanghai Zhenhui Information Technology Co,. ltd.
+  ~ All rights are reserved.
+  -->
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <include file="classpath:db/release.1.0.0/01.profession.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:db/release.1.0.0/02.group.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:db/release.1.0.0/03.user.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:db/release.1.0.0/04.oauth.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:db/release.1.0.0/05.expense.xml" relativeToChangelogFile="false"/>
+</databaseChangeLog>

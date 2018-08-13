@@ -1,0 +1,24 @@
+<!--
+  ~ Copyright (c) 2015 - 2018. Shanghai Zlp Information Technology Co,. ltd.
+  ~ All rights are reserved.
+  -->
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <property name="autoIncrement" value="true"/>
+    <changeSet id="2018072628040003" author="zlp">
+        <createTable tableName="ft_group">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}" remarks="人员架构组id">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="group_name" type="varchar(250)" remarks="人员架构组名称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_group_id" type="bigint" remarks="父架构组id">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <loadData tableName="ft_group" file="db/release.1.0.0/data/group.csv"/>
+    </changeSet>
+</databaseChangeLog>

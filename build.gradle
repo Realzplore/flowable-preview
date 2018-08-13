@@ -1,0 +1,45 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.4.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
+    //flowable  beg
+
+    //flowable  end
+    compile 'org.flowable:flowable-spring-boot-starter-rest:6.3.1'
+    compile 'org.flowable:flowable-spring-boot-starter-basic:6.3.1'
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.3'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.3'
+    compile 'org.liquibase:liquibase-core'
+    compile 'com.baomidou:mybatis-plus:2.2.0'
+    compile 'com.baomidou:mybatisplus-spring-boot-starter:1.0.5'
+    compile 'com.alibaba:druid-spring-boot-starter:1.1.9'
+    compile 'com.alibaba:fastjson:1.2.47'
+    compile 'org.projectlombok:lombok:1.16.16'
+    runtime('mysql:mysql-connector-java')
+    runtime 'com.h2database:h2:1.4.197'
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}

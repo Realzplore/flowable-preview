@@ -1,0 +1,15 @@
+<!--
+  ~ Copyright (c) 2018. Shanghai Zhenhui Information Technology Co,. ltd.
+  ~  All rights are reserved.
+  ~
+  -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flowable.modules.user.mapping.UserAuthorityMapper">
+    <select id="getAuthoritesByUserId" resultType="com.flowable.modules.user.domain.UserAuthority">
+        select *
+        from ft_user_authority
+        where user_id = #{userId};
+    </select>
+</mapper>

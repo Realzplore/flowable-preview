@@ -1,0 +1,36 @@
+<!--
+  ~ Copyright (c) 2015 - 2018. Shanghai Zlp Information Technology Co,. ltd.
+  ~ All rights are reserved.
+  -->
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <property name="autoIncrement" value="true"/>
+    <changeSet id="2018072617570002" author="zlp">
+        <createTable tableName="ft_profession">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}" remarks="职业id">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="profession_name" type="varchar(250)" remarks="职业名称">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="ft_profession_info">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}" remarks="职业信息id">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="profession_id" type="bigint" remarks="所属职业Id">
+                <constraints nullable="false"/>
+            </column>
+            <column name="profession_info_name" type="varchar(250)" remarks="职业等级名称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="profession_level" type="int" defaultValue="1" remarks="职业等级">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <loadData tableName="ft_profession" file="db/release.1.0.0/data/profession.csv"/>
+        <loadData tableName="ft_profession_info" file="db/release.1.0.0/data/profession_info.csv"/>
+    </changeSet>
+</databaseChangeLog>

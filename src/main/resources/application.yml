@@ -1,0 +1,32 @@
+server:
+  port: 10213
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:flowable
+    username: admin
+    password:
+    druid:
+      validation-query: SELECT 1
+  liquibase:
+    change-log: classpath:db/master.xml
+    enabled: true
+flowable:
+  async-executor-activate: false
+management:
+  endpoint:
+    flowable:
+      enabled: true
+mybatis-plus:
+  mapper-locations: classpath:com/flowable/*/*Mapper.xml
+  global-config:
+      id-type: 2
+      field-strategy: 2
+      db-column-underline: true
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+      refresh-mapper: false
+  configuration:
+      map-underscore-to-camel-case: true
+      cache-enabled: true

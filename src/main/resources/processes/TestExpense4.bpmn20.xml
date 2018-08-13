@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/processdef">
+  <process id="Test_Expense_4" name="TestExpense4" isExecutable="true">
+    <documentation>新增审批链</documentation>
+    <startEvent id="startEvent" name="startEvent"></startEvent>
+    <serviceTask id="decideTask" name="decideTask" flowable:type="dmn">
+      <extensionElements>
+        <flowable:field name="decisionTableReferenceKey">
+          <flowable:string><![CDATA[EXP_PRO_2]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="decisionTaskThrowErrorOnNoHits">
+          <flowable:string><![CDATA[false]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <exclusiveGateway id="decideGateway" name="decideGateway"></exclusiveGateway>
+    <userTask id="approveTask" name="approveTask">
+      <extensionElements>
+        <flowable:taskListener event="create" delegateExpression="${approveTask4Handler}">
+        </flowable:taskListener>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="approveGateway" name="approveGateway"></exclusiveGateway>
+    <endEvent id="endEvent" name="endEvent"></endEvent>
+    <serviceTask id="validationTask" name="validationTask" flowable:class="com.flowable.delegate.ValidationDelegate"></serviceTask>
+    <sequenceFlow id="flow1" name="flow1" sourceRef="startEvent" targetRef="validationTask"></sequenceFlow>
+    <sequenceFlow id="flow2" name="flow2" sourceRef="validationTask" targetRef="decideTask"></sequenceFlow>
+    <sequenceFlow id="flow3" name="flow3" sourceRef="decideTask" targetRef="decideGateway"></sequenceFlow>
+    <sequenceFlow id="flow5" name="flow5" sourceRef="approveTask" targetRef="approveGateway"></sequenceFlow>
+    <sequenceFlow id="flow4" name="flow4" sourceRef="decideGateway" targetRef="approveTask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decided}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow7" name="flow7" sourceRef="approveGateway" targetRef="endEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!approved}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow6" name="flow6" sourceRef="approveGateway" targetRef="decideTask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approved}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="BusinessTask" name="BusinessTask" flowable:class="com.flowable.delegate.BusinessDelegate"></serviceTask>
+    <endEvent id="endEvent2" name="endEvent2"></endEvent>
+    <sequenceFlow id="flow8" name="flow8" sourceRef="decideGateway" targetRef="BusinessTask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!decided}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow9" name="flow9" sourceRef="BusinessTask" targetRef="endEvent2"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Test_Expense_4">
+    <bpmndi:BPMNPlane bpmnElement="Test_Expense_4" id="BPMNPlane_Test_Expense_4">
+      <bpmndi:BPMNShape bpmnElement="startEvent" id="BPMNShape_startEvent">
+        <omgdc:Bounds height="30.0" width="30.0" x="0.0" y="375.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="decideTask" id="BPMNShape_decideTask">
+        <omgdc:Bounds height="80.0" width="100.0" x="295.0" y="350.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="decideGateway" id="BPMNShape_decideGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="440.0" y="370.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="approveTask" id="BPMNShape_approveTask">
+        <omgdc:Bounds height="80.0" width="100.0" x="410.0" y="222.2222215681246"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="approveGateway" id="BPMNShape_approveGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="440.0" y="129.6296292480727"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endEvent" id="BPMNShape_endEvent">
+        <omgdc:Bounds height="28.0" width="28.0" x="577.3324914243755" y="135.6296292480727"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="validationTask" id="BPMNShape_validationTask">
+        <omgdc:Bounds height="80.0" width="100.00000000000001" x="101.61051942311424" y="350.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="BusinessTask" id="BPMNShape_BusinessTask">
+        <omgdc:Bounds height="80.0" width="100.0" x="623.5190907383254" y="350.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endEvent2" id="BPMNShape_endEvent2">
+        <omgdc:Bounds height="28.0" width="28.0" x="808.2654879941256" y="376.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="29.9499990207701" y="390.0"></omgdi:waypoint>
+        <omgdi:waypoint x="101.61051942311424" y="390.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="201.56051942308875" y="390.0"></omgdi:waypoint>
+        <omgdi:waypoint x="294.9999999998166" y="390.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="394.9499999999846" y="390.2162337662337"></omgdi:waypoint>
+        <omgdi:waypoint x="440.4130434782609" y="390.4130434782609"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="460.4217391308354" y="370.4217391308354"></omgdi:waypoint>
+        <omgdi:waypoint x="460.15571675970835" y="302.17222156812466"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="460.17820089255287" y="222.2222215681246"></omgdi:waypoint>
+        <omgdi:waypoint x="460.4148689012192" y="169.12261748867473"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="345.0" y="150.12962924807266"></omgdi:waypoint>
+        <omgdi:waypoint x="345.0" y="150.12962924807266"></omgdi:waypoint>
+        <omgdi:waypoint x="345.0" y="350.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="479.51537864842476" y="150.05673875164945"></omgdi:waypoint>
+        <omgdi:waypoint x="577.332588741299" y="149.68294145516046"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="479.49010693470996" y="390.4552981336077"></omgdi:waypoint>
+        <omgdi:waypoint x="623.5190907383254" y="390.11724301288416"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="723.4690907382844" y="390.0"></omgdi:waypoint>
+        <omgdi:waypoint x="808.2654879941256" y="390.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

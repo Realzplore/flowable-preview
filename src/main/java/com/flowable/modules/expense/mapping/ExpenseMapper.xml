@@ -1,0 +1,15 @@
+<!--
+  ~ Copyright (c) 2018. Shanghai Zhenhui Information Technology Co,. ltd.
+  ~  All rights are reserved.
+  ~
+  -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flowable.modules.expense.mapping.ExpenseMapper">
+    <select id="selectByProcessInstanceId" resultType="com.flowable.modules.expense.domain.Expense">
+        select *
+        from ft_expense
+        where process_instance_id = #{processInstanceId};
+    </select>
+</mapper>
