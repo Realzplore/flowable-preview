@@ -70,7 +70,7 @@ public class UserService extends BaseService<UserMapper, User> {
         if (user == null || user.getId() == null) {
             return null;
         }
-        //user.setAuthorityList(userAuthorityMapper.getAuthoritesByUserId(user.getId()).stream().map(UserAuthority::getAuthorityName).collect(Collectors.toSet()));
+        user.setAuthorityList(userAuthorityMapper.getAuthoritesByUserId(user.getId()).stream().map(UserAuthority::getAuthorityName).collect(Collectors.toSet()));
         return user;
     }
 }

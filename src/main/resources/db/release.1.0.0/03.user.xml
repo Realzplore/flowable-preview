@@ -35,7 +35,7 @@
     </changeSet>
     <changeSet id="2018073120560002" author="zlp">
         <createTable tableName="ft_user_authority">
-            <column name="id" type="bigint" autoIncrement="${AutoIncrement}">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="user_id" type="bigint" remarks="用户id">
